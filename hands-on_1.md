@@ -1,7 +1,12 @@
-# CRTP
+# CRTP: Hands-on 1
 
-CRTP laboratory Hands-on:
-
+```
+• Enumerate following for the dollarcorp domain:
+  - Users
+  - Computers
+  - Domain Administrators
+  - Enterprise Administrators
+```
 Index: 
 
   1.  [Enumerate Users](#enumerate-users)
