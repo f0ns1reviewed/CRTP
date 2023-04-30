@@ -7275,3 +7275,618 @@ IdentityReferenceDN     : CN=DnsAdmins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=lo
 IdentityReferenceClass  : group
 
 ```
+Extra sweet Example:
+```
+PS C:\Users\student162> Get-DomainObjectAcl | select -expandProperty ObjectDN  | Get-Unique | % {$_;Get-Acl AD:\$_  | select -ExpandProperty Access | ?{$_.IdentityReference -like '*RDP*'} | select ActiveDirectoryRights, IdentityReference |FT}
+DC=dollarcorp,DC=moneycorp,DC=local
+OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD175,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD175,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD176,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD176,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD177,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD177,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD178,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD178,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD179,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD179,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD180,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD180,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STDADMIN,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STDADMIN,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD161,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD161,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD162,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD162,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD163,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD163,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD164,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD164,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD165,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD165,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD166,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD166,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD167,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD167,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD168,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD168,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD169,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD169,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD170,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD170,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD171,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD171,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD172,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD172,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD173,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD173,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-STD174,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-STD174,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+OU=Applocked,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-ADMINSRV,OU=Applocked,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-ADMINSRV,OU=Applocked,DC=dollarcorp,DC=moneycorp,DC=local
+OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-MGMT,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-MGMT,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-MSSQL,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-MSSQL,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-SQL1,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-SQL1,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-APPSRV,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-APPSRV,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-CI,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Virtual Machine,CN=DCORP-CI,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ecorp$,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=sql admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=web svc,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=srv admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=app admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=svc admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=test da,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=mgmt admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=krbtgt,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ci admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain Computers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=sql1 admin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain Controllers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Cert Publishers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RDP Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain Guests,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Group Policy Creator Owners,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RAS and IAS Servers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Allowed RODC Password Replication Group,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Denied RODC Password Replication Group,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Read-only Domain Controllers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Cloneable Domain Controllers,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Protected Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Key Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DnsAdmins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DnsUpdateProxy,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=studentadmin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student161,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=mcorp$,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student162,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student163,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student164,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student165,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student166,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student167,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student168,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student169,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student170,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student171,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student172,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student173,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student174,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student175,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student176,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student177,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student178,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student179,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=student180,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Control161User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control162User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control163User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control164User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control165User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control166User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control167User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control168User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control169User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=US$,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Control170User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control171User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control172User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control173User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control174User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control175User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control176User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control177User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control178User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control179User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Control180User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support161User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support162User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support163User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support164User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support165User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support166User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support167User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support168User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support169User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support170User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support171User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support172User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support173User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support174User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support175User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support176User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support177User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support178User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support179User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=Support180User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+
+ActiveDirectoryRights IdentityReference
+--------------------- -----------------
+           GenericAll dcorp\RDPUsers
+
+
+CN=VPN161User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN162User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN163User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN164User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN165User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN166User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN167User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN168User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN169User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN170User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN171User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN172User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN173User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN174User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN175User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN176User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN177User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN178User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN179User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=VPN180User,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Administrator,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Guest,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Computers,DC=dollarcorp,DC=moneycorp,DC=local
+OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-DC,OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RID Set,CN=DCORP-DC,OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DFSR-LocalSettings,CN=DCORP-DC,OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain System Volume,CN=DFSR-LocalSettings,CN=DCORP-DC,OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=SYSVOL Subscription,CN=Domain System Volume,CN=DFSR-LocalSettings,CN=DCORP-DC,OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
+CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=eurocorp.local,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Server,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=moneycorp.local,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RID Manager$,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=@,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=A.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=B.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=C.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=D.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=E.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=F.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=G.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=H.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=I.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=J.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=K.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=L.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+DC=M.ROOT-SERVERS.NET,DC=RootDNSServers,CN=MicrosoftDNS,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=WinsockServices,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RpcServices,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=FileLinks,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ObjectMoveTable,CN=FileLinks,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Default Domain Policy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=AppCategories,CN=Default Domain Policy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Meetings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Machine,CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=User,CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN={308279C1-FFB6-4D52-948C-660B07AC77FB},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Machine,CN={308279C1-FFB6-4D52-948C-660B07AC77FB},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=User,CN={308279C1-FFB6-4D52-948C-660B07AC77FB},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN={7478F170-6A0C-490C-B355-9E4618BC785D},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Machine,CN={7478F170-6A0C-490C-B355-9E4618BC785D},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=User,CN={7478F170-6A0C-490C-B355-9E4618BC785D},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=User,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Machine,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=User,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Machine,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RAS and IAS Servers Access Check,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=File Replication Service,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Dfs-Configuration,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Domain System Volume,CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Content,CN=Domain System Volume,CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=SYSVOL Share,CN=Content,CN=Domain System Volume,CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Topology,CN=Domain System Volume,CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DCORP-DC,CN=Topology,CN=Domain System Volume,CN=DFSR-GlobalSettings,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=AdminSDHolder,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ComPartitions,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ComPartitionSets,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=WMIPolicy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=PolicyTemplate,CN=WMIPolicy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=SOM,CN=WMIPolicy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=PolicyType,CN=WMIPolicy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=WMIGPO,CN=WMIPolicy,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6E157EDF-4E72-4052-A82A-EC3F91021A22,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ab402345-d3c3-455d-9ff7-40268a1099b6,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=bab5f54d-06c8-48de-9b87-d78b796564e4,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=f3dd09dd-25e8-4f9c-85df-12d6d2f2f2f5,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=2416c60a-fe15-4d7a-a61e-dffd5df864d3,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=7868d4c8-ac41-4e05-b401-776280e8e9f1,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=860c36ed-5241-4c62-a18b-cf6ff9994173,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=0e660ea3-8a5e-4495-9ad7-ca1bd4638f9e,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=a86fe12a-0f62-4e2a-b271-d27f601f8182,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=d85c0bfd-094f-4cad-a2b5-82ac9268475d,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6ada9ff7-c9df-45c1-908e-9fef2fab008a,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=10b3ad2a-6883-4fa7-90fc-6377cbdc1b26,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=98de1d3e-6611-443b-8b4e-f4337f1ded0b,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=f607fd87-80cf-45e2-890b-6cf97ec0e284,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=9cac1f66-2167-47ad-a472-2a13251310e4,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6ff880d6-11e7-4ed1-a20f-aac45da48650,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=446f24ea-cfd5-4c52-8346-96e170bcb912,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=51cba88b-99cf-4e16-bef2-c427b38d0767,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=a3dac986-80e7-4e59-a059-54cb1ab43cb9,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=293f0798-ea5c-4455-9f5d-45f33a30703b,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=5c82b233-75fc-41b3-ac71-c69592e6bf15,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=7ffef925-405b-440a-8d58-35e8cd6e98c3,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=4dfbb973-8a62-4310-a90c-776e00f83222,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=8437C3D8-7689-4200-BF38-79E4AC33DFA0,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=7cfb016c-4f87-4406-8166-bd9df943947f,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=f7ed4553-d82b-49ef-a839-2f38a36bb069,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=8ca38317-13a4-4bd4-806f-ebed6acb5d0c,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=3c784009-1f57-4e2a-9b04-6915c9e71961,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5678-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5679-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567e-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd567f-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5680-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5681-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5682-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5683-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5684-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5685-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5686-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5687-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5688-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd5689-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd568a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd568b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd568c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=6bcd568d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=3051c66f-b332-4a73-9a20-2d6a7d6e6a1c,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=3e4f4182-ac5d-4378-b760-0eab2de593e2,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=c4f17608-e611-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=13d15cf0-e6c8-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=8ddf6913-1c7b-4c59-a5af-b9ca3b3d2c4c,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=dda1d01d-4bd7-4c49-a184-46f9241b560e,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=a1789bfb-e0a2-4739-8cc0-e77d892d080a,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=61b34cb0-55ee-4be9-b595-97810b92b017,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=57428d75-bef7-43e1-938b-2e749f5a8d56,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ebad865a-d649-416f-9922-456b53bbb5b8,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=0b7fb422-3609-4587-8c2e-94b10f67d1bf,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=2951353e-d102-4ea5-906c-54247eeec741,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=71482d49-8870-4cb3-a438-b6fc9ec35d70,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=aed72870-bf16-4788-8ac7-22299c8207f1,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=f58300d1-b71a-4DB6-88a1-a8b9538beaca,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=231fb90b-c92a-40c9-9379-bacfc313a3e3,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=4aaabc3a-c416-4b9c-a6bb-4b453ab1c1f0,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=9738c400-7795-4d6e-b19d-c16cd6486166,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=de10d491-909f-4fb0-9abb-4b7865c0fe80,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=b96ed344-545a-4172-aa0c-68118202f125,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=4c93ad42-178a-4275-8600-16811d28f3aa,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=c88227bc-fcca-4b58-8d8a-cd3d64528a02,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=5e1574f6-55df-493e-a671-aaeffca6a100,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=d262aae8-41f7-48ed-9f35-56bbb677573d,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=82112ba0-7e4c-4a44-89d9-d46c9612bf91,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=c3c927a6-cc1d-47c0-966b-be8f9b63d991,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=54afcfb9-637a-4251-9f47-4d50e7021211,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=f4728883-84dd-483c-9897-274f2ebcf11e,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ff4f9d27-7157-4cb0-80a9-5d6f2b14c8ff,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=83C53DA7-427E-47A4-A07A-A324598B88F7,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=C81FC9CC-0130-4FD1-B272-634D74818133,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=E5F9E791-D96D-4FC9-93C9-D53E1DC439BA,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=e6d5fd00-385d-4e65-b02d-9da3493ed850,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=3a6b3fbf-3168-4312-a10d-dd5b3393952d,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=7F950403-0AB3-47F9-9730-5D7B0269F9BD,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=434bb40d-dbc9-4fe7-81d4-d57229f7b080,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=A0C238BA-9E30-4EE6-80A6-43F731E9A5CD,CN=Operations,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows2003Update,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ActiveDirectoryUpdate,CN=DomainUpdates,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=us.dollarcorp.moneycorp.local,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=PSPs,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+CN=LostAndFound,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Infrastructure,DC=dollarcorp,DC=moneycorp,DC=local
+CN=ForeignSecurityPrincipals,DC=dollarcorp,DC=moneycorp,DC=local
+CN=S-1-5-17,CN=ForeignSecurityPrincipals,DC=dollarcorp,DC=moneycorp,DC=local
+CN=S-1-5-9,CN=ForeignSecurityPrincipals,DC=dollarcorp,DC=moneycorp,DC=local
+CN=S-1-5-4,CN=ForeignSecurityPrincipals,DC=dollarcorp,DC=moneycorp,DC=local
+CN=S-1-5-11,CN=ForeignSecurityPrincipals,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Program Data,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Microsoft,CN=Program Data,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Managed Service Accounts,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Guests,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Print Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Backup Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Replicator,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Remote Desktop Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Network Configuration Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Performance Monitor Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Performance Log Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Distributed COM Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=IIS_IUSRS,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Cryptographic Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Event Log Readers,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Certificate Service DCOM Access,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RDS Remote Access Servers,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RDS Endpoint Servers,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=RDS Management Servers,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Hyper-V Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Access Control Assistance Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Remote Management Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Storage Replica Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Server Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Account Operators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Pre-Windows 2000 Compatible Access,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Windows Authorization Access Group,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Terminal Server License Servers,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+CN=Users,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local
+PS C:\Users\student162>
+```
