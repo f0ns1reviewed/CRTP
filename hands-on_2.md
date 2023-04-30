@@ -105,3 +105,175 @@ objectclass              : {top, container, groupPolicyContainer}
 objectcategory           : CN=Group-Policy-Container,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 
 ```
+Applayed GPOs on every studentMachines computers:
+
+```
+Get-ADComputer -SearchBase 'OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local' -Filter *  -Properties * | select name | Foreach-Object {$_.name; Get-DomainGPO -ComputerIdentity $_.name 2> $null | select displayname | FT}
+DCORP-STDADMIN
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD161
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD162
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD163
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD164
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD165
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD166
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD167
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD168
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD169
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD170
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD171
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD172
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD173
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD174
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD175
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD176
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD177
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD178
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD179
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+
+DCORP-STD180
+
+displayname
+-----------
+Students
+Default Domain Policy
+
+```
