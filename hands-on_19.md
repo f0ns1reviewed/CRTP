@@ -1,8 +1,10 @@
-CRTP: Hands-On 19
+# CRTP: Hands-On 19
 
 ```
-• Using DA access to dollarcorp.moneycorp.local, escalate privileges to
-Enterprise Admin or DA to the parent domain, moneycorp.local using
-dollarcorp's krbtgt hash.
+• Using DA access to dollarcorp.moneycorp.local, escalate privileges to Enterprise Admin or DA to the parent domain, moneycorp.local using dollarcorp's krbtgt hash.
 ```
+
+## Escalate to EA using Krbtgt
+
+
 
