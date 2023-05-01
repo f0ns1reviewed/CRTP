@@ -1,4 +1,4 @@
-CRTP: Hands-On 16
+# CRTP: Hands-On 16
 
 ```
 • Enumerate users in the domain for whom Constrained Delegation is enabled.
@@ -8,4 +8,16 @@ CRTP: Hands-On 16
   – For such a user, request a TGT from the DC.
   – Use the TGS for executing the DCSync attack.
 ```
+
+Index:
+
+  1. [Constrained Delegation For users](#constrained-delegation-for-users)
+  2. [Constrained Delegation For computers](#constrained-delegation-for-users)
+
+
+## Constrained Delegation For users
+
+## Constrained Delegation For computers
+
+
 
