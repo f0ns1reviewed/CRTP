@@ -1,4 +1,4 @@
-CRTP: Hands-On 9
+# CRTP: Hands-On 9
 
 ```
 • During the additional lab time:
@@ -6,4 +6,16 @@ CRTP: Hands-On 9
   – HOST service
   – WMI
 ```
+
+Index:
+
+  1. [Silver Ticket HOST](#silver-ticket-host)
+  2. [Silver Ticket WMI](#silver-ticket-wmi)
+
+
+## Silver Ticket HOST
+
+
+## Silver Ticket WMI
+
 
