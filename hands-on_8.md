@@ -1,4 +1,4 @@
-CRTP: Hands-On 8
+# CRTP: Hands-On 8
 
 ```
   • Extract secrets from the domain controller of dollarcorp.
