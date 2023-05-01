@@ -1218,6 +1218,11 @@ NTLM : 9b2544e351c72905e0e7c4583e255bd1
 ```
 ## Using Secrets for Golden Ticket
 
+```
+```
 
 ## Golden Ticket DA privileges
+
+```
+```
 
