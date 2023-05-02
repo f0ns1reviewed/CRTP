@@ -539,5 +539,23 @@ Certify completed in 00:00:14.9647910
 
 ## Abuse Certificate templates
 
+Exploit the following template:
 
+```
+ CA Name                               : mcorp-dc.moneycorp.local\moneycorp-MCORP-DC-CA
+    Template Name                         : CA-Integration
+    Schema Version                        : 2
+    Validity Period                       : 1 year
+    Renewal Period                        : 6 weeks
+    msPKI-Certificates-Name-Flag          : SUBJECT_ALT_REQUIRE_UPN, SUBJECT_REQUIRE_DIRECTORY_PATH
+    mspki-enrollment-flag                 : INCLUDE_SYMMETRIC_ALGORITHMS, PUBLISH_TO_DS, AUTO_ENROLLMENT
+    Authorized Signatures Required        : 0
+    pkiextendedkeyusage                   : Client Authentication, Encrypting File System, Secure Email
+    mspki-certificate-application-policy  : Client Authentication, Encrypting File System, Secure Email
+    Permissions
+      Enrollment Permissions
+        Enrollment Rights           : dcorp\RDPUsers                S-1-5-21-719815819-3726368948-3917688648-1123
+                                      mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+                                      mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+```
 
