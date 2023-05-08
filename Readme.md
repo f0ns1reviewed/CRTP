@@ -2,7 +2,7 @@
 
 This is a complete guide of the hands on laboratory for CRTP certification
 
-[Lab infraestructure]!(/infra.png)
+![Lab infraestructure](infrapng)
 
 Index of content:
 
