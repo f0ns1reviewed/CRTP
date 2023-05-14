@@ -17,7 +17,7 @@ Index:
 
 ## Constrained Delegation For users
 
-Detect users with unconstrained delegation enable:
+Detect users with constrained delegation enable:
 
 ```
 PS C:\Users\student162> Get-DomainUser -TrustedToAuth | select name, msds-allowedtodelegateto
